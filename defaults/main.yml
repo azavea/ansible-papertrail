@@ -1,0 +1,6 @@
+---
+papertrail_version: "v0.13"
+papertrail_check_interval_s: 10
+papertrail_port: "" # set to user's port
+papertrail_log_files:
+  - /var/log/**/*.log
