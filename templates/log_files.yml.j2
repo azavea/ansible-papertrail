@@ -1,0 +1,13 @@
+---
+# Papertrail configuration.
+# WARNING: This file was written by ansible, and will be overwritten by reprovisioning.
+
+files: {{ papertrail_log_files }}
+exclude_files:
+  - old
+  - 200\d
+destination:
+  host: logs.papertrailapp.com
+  port: {{ papertrail_port }}
+  protocol: tls
+new_file_check_interval: "{{ papertrail_check_interval_s }}" # in seconds

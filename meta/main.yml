@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Kathryn Killebrew
+  description: An Ansible role for installing Papertrail.
+  company: Azavea Inc.
+  license: Apache
+  min_ansible_version: 1.2
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  categories:
+  - cloud
+  - system
