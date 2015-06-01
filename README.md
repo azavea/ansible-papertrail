@@ -8,6 +8,11 @@ An ansible role for installing [Papertrail](https://papertrailapp.com).
 - `papertrail_port` - Must be set to user's Papertrail port
 - `papertrail_log_files` - List of logfiles to send; defaults to all .log files in /var/log
 
+## Usage
+The `papertrail_port` must be set to the port for the user account to receive the logs.
+You will probably want to change `papertrail_log_files` to only send logs of interest; by default,
+it will send quite a lot of data.
+
 ## Example Playbook
 
 See the [examples](./examples/) directory.
