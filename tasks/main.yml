@@ -1,4 +1,7 @@
 ---
+- name: Install rsyslog-gnutls
+  apt: name=rsyslog-gnutls state=present
+
 - name: Download Papertrail remote_syslog2
   get_url: url=https://github.com/papertrail/remote_syslog2/releases/download/{{ papertrail_version }}/remote_syslog_linux_amd64.tar.gz
            dest=/opt/remote_syslog_linux_amd64.tar.gz
@@ -8,6 +11,13 @@
              dest=/opt/
              copy=no
              creates=/opt/remote_syslog/remote_syslog
+
+- name: Download Papertrail .pem file
+  get_url: dest=/etc/papertrail-bundle.pem url=https://papertrailapp.com/tools/papertrail-bundle.pem sha256sum=c03a504397dc45b4fc05f978dbf02129793cbd2a0b64856c2ba1bb49a3b9aacb
+
+- name: Configure rsyslog to send to Papertrail
+  template: src=rsyslog.conf.j2 dest=/etc/rsyslog.conf
+  notify: Restart rsyslog
 
 - name: Configure Papertrail service definition
   template: src=remote_syslog.conf.j2 dest=/etc/init/remote_syslog.conf
