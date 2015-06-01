@@ -7,7 +7,7 @@ exclude_files:
   - old
   - 200\d
 destination:
-  host: logs.papertrailapp.com
+  host: {{ papertrail_host }}.papertrailapp.com
   port: {{ papertrail_port }}
   protocol: tls
 new_file_check_interval: "{{ papertrail_check_interval_s }}" # in seconds
