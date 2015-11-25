@@ -2,5 +2,5 @@
 - name: Restart remote_syslog
   service: name=remote_syslog state=restarted
 
-- name: Restart rsyslog
+- name: Restart Rsyslog
   service: name=rsyslog state=restarted
