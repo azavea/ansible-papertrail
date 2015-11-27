@@ -6,7 +6,7 @@ An Ansible role for installing [Papertrail](https://papertrailapp.com).
 
 - `papertrail_version` - Release of [remote_syslog2](https://github.com/papertrail/remote_syslog2) to use
 - `papertrail_conf` - Application logs configuration file (default: `/etc/log_files.yml`)
-- `papertrail_host` - Host for Papertrail's logging endpoint (default: `logs2.papertrail.com)
+- `papertrail_host` - Host for Papertrail's logging endpoint (default: `logs2.papertrail.com`)
 - `papertrail_port` - Port for Papertrail's logging endpoint (default: `45551`)
 
 ## Usage
