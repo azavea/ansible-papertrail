@@ -1,28 +1,40 @@
 ---
-- name: Install rsyslog-gnutls
+- name: Create service account for Beaver
+  user: name=papertrail
+        system=yes
+        home=/var/lib/papertrail
+        shell=/bin/false
+        state=present
+
+- name: Download Papertrail PEM
+  get_url: url="https://papertrailapp.com/tools/papertrail-bundle.pem"
+           dest="/etc/papertrail-bundle.pem"
+           sha256sum="c03a504397dc45b4fc05f978dbf02129793cbd2a0b64856c2ba1bb49a3b9aacb"
+           mode=0644
+
+- name: Install TLS support for Rsyslog
   apt: name=rsyslog-gnutls state=present
 
-- name: Download Papertrail remote_syslog2
-  get_url: url=https://github.com/papertrail/remote_syslog2/releases/download/{{ papertrail_version }}/remote_syslog_linux_amd64.tar.gz
-           dest=/opt/remote_syslog_linux_amd64.tar.gz
+- name: Download remote_syslog
+  get_url: url="https://github.com/papertrail/remote_syslog2/releases/download/v{{ papertrail_version }}/remote_syslog_linux_amd64.tar.gz"
+           dest="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
 
-- name: Extract Papertrail remote_syslog2
-  unarchive: src=/opt/remote_syslog_linux_amd64.tar.gz
-             dest=/opt/
+- name: Extract remote_syslog
+  unarchive: src="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
+             dest=/opt
              copy=no
+             owner=root
+             group=root
              creates=/opt/remote_syslog/remote_syslog
 
-- name: Download Papertrail .pem file
-  get_url: dest=/etc/papertrail-bundle.pem url=https://papertrailapp.com/tools/papertrail-bundle.pem sha256sum=c03a504397dc45b4fc05f978dbf02129793cbd2a0b64856c2ba1bb49a3b9aacb
-
-- name: Configure rsyslog to send to Papertrail
-  template: src=rsyslog.conf.j2 dest=/etc/rsyslog.conf
-  notify: Restart rsyslog
+- name: Configure Rsyslog to use Papertrail
+  template: src="90-papertrail.conf.j2"
+            dest="/etc/rsyslog.d/90-papertrail.conf"
+  notify:
+    - Restart Rsyslog
 
 - name: Configure Papertrail service definition
-  template: src=remote_syslog.conf.j2 dest=/etc/init/remote_syslog.conf
-  notify: Restart remote_syslog
-
-- name: Write Papertrail configuration file
-  template: src=log_files.yml.j2 dest=/etc/log_files.yml
-  notify: Restart remote_syslog
+  template: src="remote_syslog.conf.j2"
+            dest="/etc/init/remote_syslog.conf"
+  notify:
+    - Restart remote_syslog

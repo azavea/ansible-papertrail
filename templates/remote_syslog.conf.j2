@@ -3,7 +3,11 @@ start on runlevel [2345]
 stop on runlevel [!2345]
 
 respawn
+setuid papertrail
+chdir /var/lib/papertrail
 
-pre-start exec /usr/bin/test -e /etc/log_files.yml
-
-exec /opt/remote_syslog/remote_syslog -D
+script
+  if [ -f {{ papertrail_conf }} ]; then
+    exec /opt/remote_syslog/remote_syslog -D
+  fi
+end script
