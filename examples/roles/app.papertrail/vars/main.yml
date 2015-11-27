@@ -1,0 +1,3 @@
+---
+papertrail_host: "logs3.papertrailapp.com"
+papertrail_port: 45551
