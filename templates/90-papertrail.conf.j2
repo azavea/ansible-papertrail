@@ -1,4 +1,5 @@
 $DefaultNetstreamDriverCAFile /etc/papertrail-bundle.pem # trust these CAs
+$PreserveFQDN {{ papertrail_preserve_fqdn | default('off') }}
 $ActionSendStreamDriver gtls # use gtls netstream driver
 $ActionSendStreamDriverMode 1 # require TLS
 $ActionSendStreamDriverAuthMode x509/name # authenticate by hostname
