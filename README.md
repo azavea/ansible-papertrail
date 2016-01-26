@@ -8,6 +8,7 @@ An Ansible role for installing [Papertrail](https://papertrailapp.com).
 - `papertrail_conf` - Application logs configuration file (default: `/etc/log_files.yml`)
 - `papertrail_host` - Host for Papertrail's logging endpoint (default: `logs2.papertrail.com`)
 - `papertrail_port` - Port for Papertrail's logging endpoint (default: `45551`)
+- `papertrail_preserve_fqdn` - Configure if rsyslog need to respect FQDN (default: `off`)
 
 ## Usage
 
