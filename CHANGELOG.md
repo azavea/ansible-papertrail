@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Add support for `PreserveFQDN` Rsyslog configuration setting.
+
 ## 1.0.0
 
 - Bump `remote_syslog2` version to `0.15`.
