@@ -1,5 +1,5 @@
 ---
-- name: Create service account for Beaver
+- name: Create service account for Papertrail
   user: name=papertrail
         system=yes
         home=/var/lib/papertrail
