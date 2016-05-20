@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Update checksum for Papertrail certificate.
+
 ## 1.1.0
 
 - Add support for `PreserveFQDN` Rsyslog configuration setting.
