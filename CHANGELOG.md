@@ -1,3 +1,7 @@
+## 1.1.2
+
+- Add dependency metadata to role.
+
 ## 1.1.1
 
 - Update checksum for Papertrail certificate.
