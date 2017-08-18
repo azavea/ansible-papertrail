@@ -1,0 +1,28 @@
+---
+ansible:
+  config_file: ansible.cfg
+  become: True
+
+molecule:
+  test:
+    sequence:
+      - destroy
+      - syntax
+      - create
+      - converge
+      - verify
+
+vagrant:
+  platforms:
+    - name: trusty64
+      box: ubuntu/trusty64
+
+    - name: xenial64
+      box: ubuntu/xenial64
+
+  providers:
+    - name: virtualbox
+      type: virtualbox
+
+  instances:
+    - name: ansible-papertrail
