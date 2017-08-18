@@ -18,14 +18,10 @@
 - name: Download remote_syslog
   get_url: url="https://github.com/papertrail/remote_syslog2/releases/download/v{{ papertrail_version }}/remote_syslog_linux_amd64.tar.gz"
            dest="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
+  register: remote_syslog_download
 
-- name: Extract remote_syslog
-  unarchive: src="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
-             dest=/opt
-             copy=no
-             owner=root
-             group=root
-             creates=/opt/remote_syslog/remote_syslog
+- include: extract-remote-syslog.yml
+  when: remote_syslog_download.changed
 
 - name: Configure Rsyslog to use Papertrail
   template: src="90-papertrail.conf.j2"
