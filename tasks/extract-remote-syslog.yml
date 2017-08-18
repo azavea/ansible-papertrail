@@ -1,0 +1,7 @@
+---
+- name: Extract remote_syslog
+  unarchive: src="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
+             dest=/opt
+             copy=no
+             owner=root
+             group=root
