@@ -29,8 +29,13 @@
   notify:
     - Restart Rsyslog
 
+- debug: msg="Adding papertrail config at {{ papertrail_remote_syslog_config_paths[ansible_service_mgr].path }}"
+
 - name: Configure Papertrail service definition
-  template: src="remote_syslog.conf.j2"
-            dest="/etc/init/remote_syslog.conf"
+  template: src="remote_syslog.{{ ansible_service_mgr }}.conf.j2"
+            dest="{{ papertrail_remote_syslog_config_paths[ansible_service_mgr].path }}"
+
+- name: Enable Papertrail service
+  service: name=remote_syslog enabled=true
   notify:
     - Restart remote_syslog
