@@ -1,4 +1,6 @@
 .vagrant
-
 *.log
 *.retry
+.molecule
+tests/.cache/v/cache
+tests/__pycache__

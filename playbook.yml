@@ -11,6 +11,7 @@
     - name: Check Ubuntu release
       raw: cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f2
       register: ubuntu_release
+      changed_when: false
 
     - debug: msg="Running ubuntu version {{ ubuntu_release.stdout }}"
 
@@ -18,6 +19,7 @@
     - name: Update APT cache
       raw: apt-get update
       become: True
+      changed_when: false
 
     - name: Install Python
       raw: apt-get install -yq python
@@ -29,4 +31,18 @@
       setup:
 
   roles:
-    - { role: "app.papertrail" }
+    # Papertrail
+    - { role: "ansible-papertrail" }
+
+  tasks:
+    - name: Configure remote_syslog
+      template: src="log_files.yml.j2"
+                dest="{{ papertrail_conf }}"
+      notify:
+        - Restart remote_syslog
+
+    - name: Add Papertrail user to service group
+      user: name=papertrail
+            append=yes
+            groups=adm
+            state=present
