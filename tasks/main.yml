@@ -9,7 +9,7 @@
 - name: Download Papertrail PEM
   get_url: url="https://papertrailapp.com/tools/papertrail-bundle.pem"
            dest="/etc/papertrail-bundle.pem"
-           sha256sum="7019189e20ed695e9092e67d91a3b37249474f4c4c6355193ce6d2cb648f147c"
+           checksum="sha256:7019189e20ed695e9092e67d91a3b37249474f4c4c6355193ce6d2cb648f147c"
            mode=0644
 
 - name: Install TLS support for Rsyslog
@@ -18,14 +18,10 @@
 - name: Download remote_syslog
   get_url: url="https://github.com/papertrail/remote_syslog2/releases/download/v{{ papertrail_version }}/remote_syslog_linux_amd64.tar.gz"
            dest="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
+  register: remote_syslog_download
 
-- name: Extract remote_syslog
-  unarchive: src="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
-             dest=/opt
-             copy=no
-             owner=root
-             group=root
-             creates=/opt/remote_syslog/remote_syslog
+- include: extract-remote-syslog.yml
+  when: remote_syslog_download.changed
 
 - name: Configure Rsyslog to use Papertrail
   template: src="90-papertrail.conf.j2"
@@ -33,8 +29,13 @@
   notify:
     - Restart Rsyslog
 
+- debug: msg="Adding papertrail config at {{ papertrail_remote_syslog_config_paths[ansible_service_mgr].path }}"
+
 - name: Configure Papertrail service definition
-  template: src="remote_syslog.conf.j2"
-            dest="/etc/init/remote_syslog.conf"
+  template: src="remote_syslog.{{ ansible_service_mgr }}.conf.j2"
+            dest="{{ papertrail_remote_syslog_config_paths[ansible_service_mgr].path }}"
+
+- name: Enable Papertrail service
+  service: name=remote_syslog enabled=true
   notify:
     - Restart remote_syslog
