@@ -1,3 +1,9 @@
+## 1.2.0
+
+- Use `get_url` checksum argument instead of deprecated sha256sum.
+- Extract `remote_syslog` if a new version has been downloaded.
+- Add support for Ubuntu 16.04.
+
 ## 1.1.2
 
 - Add dependency metadata to role.
