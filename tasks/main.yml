@@ -20,7 +20,7 @@
            dest="/usr/local/src/remote_syslog_{{ papertrail_version }}_linux_amd64.tar.gz"
   register: remote_syslog_download
 
-- include_tasks: extract-remote-syslog.yml
+- include: extract-remote-syslog.yml
   when: remote_syslog_download.changed
 
 - name: Configure Rsyslog to use Papertrail
