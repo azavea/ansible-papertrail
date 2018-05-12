@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     trusty.vm.provision "ansible" do |ansible|
       ansible.playbook = "site.yml"
-      ansible.sudo = true
+      ansible.become = true
     end
   end
 
@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     xenial.vm.provision "ansible" do |ansible|
       ansible.playbook = "site.yml"
-      ansible.sudo = true
+      ansible.become = true
     end
   end
 end
