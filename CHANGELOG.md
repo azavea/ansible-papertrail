@@ -1,3 +1,9 @@
+## 1.3.0
+
+- Make CA bundle checksum configurable.
+- Fix Ansible 2.4 deprecation warnings.
+- Make minimum supported Ansible version 2.4.
+
 ## 1.2.0
 
 - Use `get_url` checksum argument instead of deprecated sha256sum.
