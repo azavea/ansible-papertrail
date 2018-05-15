@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "xenial" do |xenial|
-    xenial.vm.box = "ubuntu/xenial64"
+    xenial.vm.box = "bento/ubuntu-16.04"
     xenial.vm.hostname = "xenial64"
 
     xenial.vm.provision "ansible" do |ansible|

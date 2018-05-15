@@ -1,3 +1,7 @@
+## 1.3.1
+
+- Update default checksum for Papertrail PEM file.
+
 ## 1.3.0
 
 - Make CA bundle checksum configurable.
