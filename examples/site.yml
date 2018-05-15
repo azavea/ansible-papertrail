@@ -3,26 +3,14 @@
   gather_facts: False
 
   pre_tasks:
-
     # Check Ubuntu release version to determine if we need to install Python 2,
     # an ansible dependency that isn't included by default in Ubuntu 16.04 and
     # up.
-
     - name: Check Ubuntu release
       raw: cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d "=" -f2
       register: ubuntu_release
 
     - debug: msg="Running ubuntu version {{ ubuntu_release.stdout }}"
-
-    # Update apt cache and install python 2 for Ubuntu versions greater than 16.04
-    - name: Update APT cache
-      raw: apt-get update
-      become: True
-
-    - name: Install Python
-      raw: apt-get install -yq python
-      become: True
-      when: ubuntu_release.stdout | version_compare('16.04', '>=')
 
     # Gather facts once ansible dependencies are installed
     - name: Gather facts
