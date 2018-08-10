@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Remove Papertrail PEM checksum check.
+
 ## 1.3.1
 
 - Update default checksum for Papertrail PEM file.
