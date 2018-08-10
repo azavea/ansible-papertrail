@@ -9,7 +9,6 @@
 - name: Download Papertrail PEM
   get_url: url="https://papertrailapp.com/tools/papertrail-bundle.pem"
            dest="/etc/papertrail-bundle.pem"
-           checksum="{{ papertrail_ca_bundle_checksum }}"
            mode=0644
 
 - name: Install TLS support for Rsyslog
