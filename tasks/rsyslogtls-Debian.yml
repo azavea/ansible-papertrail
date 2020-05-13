@@ -1,0 +1,4 @@
+
+- name: Install TLS support for Rsyslog
+  apt: name=rsyslog-gnutls state=present
+
