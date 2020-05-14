@@ -4,9 +4,9 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.define "trusty" do |trusty|
-    trusty.vm.box = "ubuntu/trusty64"
-    trusty.vm.hostname = "trusty64"
+  config.vm.define "fedora" do |trusty|
+    trusty.vm.box = "bento/fedora-32"
+    trusty.vm.hostname = "fedora"
 
     trusty.vm.provision "ansible" do |ansible|
       ansible.playbook = "site.yml"
