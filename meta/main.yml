@@ -1,4 +1,6 @@
 ---
+dependencies: []
+
 galaxy_info:
   author: Kathryn Killebrew
   description: An Ansible role for installing Papertrail.
@@ -10,7 +12,16 @@ galaxy_info:
     versions:
     - trusty
     - xenial
+  - name: EL
+    versions:
+      - all
+  - name: Fedora
+    versions:
+      - all
+  - name: Debian
+    versions:
+      - all
   categories:
   - cloud
   - system
-  dependencies: []
+

@@ -11,8 +11,14 @@
            dest="/etc/papertrail-bundle.pem"
            mode=0644
 
-- name: Install TLS support for Rsyslog
-  apt: name=rsyslog-gnutls state=present
+- include_tasks: rsyslogtls-RedHat.yml
+  when:
+    - ansible_os_family == 'RedHat'
+
+- include_tasks: rsyslogtls-Debian.yml
+  when:
+    - ansible_os_family == 'Debian'
+
 
 - name: Download remote_syslog
   get_url: url="https://github.com/papertrail/remote_syslog2/releases/download/v{{ papertrail_version }}/remote_syslog_linux_amd64.tar.gz"

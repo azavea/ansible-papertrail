@@ -9,3 +9,4 @@ papertrail_remote_syslog_config_paths:
     path: /etc/init/remote_syslog.conf
   systemd:
     path: /lib/systemd/system/remote_syslog.service
+papertrail_remote_user: "papertrail"

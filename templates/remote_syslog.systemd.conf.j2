@@ -7,7 +7,7 @@ ConditionPathExists={{ papertrail_conf }}
 [Service]
 ExecStart=/opt/remote_syslog/remote_syslog -D
 Restart=always
-User=papertrail
+User={{ papertrail_remote_user }}
 
 [Install]
 WantedBy=multi-user.target
